@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import './screens/product_detail_screen.dart';
+import 'providers/products_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/products_overview_screen.dart';
 
@@ -9,20 +12,28 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = ThemeData(
-      fontFamily: "MarketSans",
+      fontFamily: "Lunchtype",
     );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Shopping App',
-      theme: theme.copyWith(
-          colorScheme: theme.colorScheme
-              .copyWith(primary: const Color.fromRGBO(48, 85, 102, 1))
-              .copyWith(secondary: Colors.green)),
-      home: ProductOverviewScreen(),
+    // Must
+    return ChangeNotifierProvider(
+      // Use create if instantiating objects
+      create: ((context) => ProductsProvider()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Shopping App',
+        theme: theme.copyWith(
+            colorScheme: theme.colorScheme
+                .copyWith(primary: const Color.fromRGBO(48, 85, 102, 1))
+                .copyWith(secondary: Colors.green)),
+        home: const ProductOverviewScreen(),
+        routes: {
+          ProductDetailScreen.routeName: (context) =>
+              const ProductDetailScreen()
+        },
+      ),
     );
   }
 }
