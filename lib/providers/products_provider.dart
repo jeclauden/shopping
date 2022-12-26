@@ -39,8 +39,13 @@ class ProductsProvider with ChangeNotifier {
   ];
 
   // Must return a copy not the actual list
-  List<Product> get getProducts {
+  List<Product> get getAllProducts {
     return [..._items];
+  }
+
+  // Return of copy of the list of favorite products
+  List<Product> get getFavoriteProducts {
+    return _items.where((prod) => prod.isFavorite).toList();
   }
 
   void addProduct() {
