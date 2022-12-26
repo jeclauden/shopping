@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'providers/cart.dart';
 import './screens/product_detail_screen.dart';
 import 'providers/products_provider.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +18,17 @@ class MyApp extends StatelessWidget {
     final ThemeData theme = ThemeData(
       fontFamily: "Lunchtype",
     );
-    // Must
-    return ChangeNotifierProvider(
-      // Use create if instantiating objects
-      create: ((context) => ProductsProvider()),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          // Use create if instantiating objects
+          create: ((context) => ProductsProvider()),
+        ),
+        ChangeNotifierProvider(
+          // Use create if instantiating objects
+          create: ((context) => Cart()),
+        )
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Shopping App',
