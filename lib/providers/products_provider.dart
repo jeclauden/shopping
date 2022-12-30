@@ -7,7 +7,8 @@ class ProductsProvider with ChangeNotifier {
       id: 'p2',
       title:
           'Wahl Clipper Oil 120ml - Lubricating Oil for Clippers, Scissors & Shears',
-      description: 'A nice pair of trousers.',
+      description:
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
       price: 23.50,
       imageUrl:
           'https://images.unsplash.com/photo-1600493570893-3d5c65dce3c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
@@ -41,6 +42,11 @@ class ProductsProvider with ChangeNotifier {
   // Must return a copy not the actual list
   List<Product> get getAllProducts {
     return [..._items];
+  }
+
+  String getImageUrl(String id) {
+    final Product p = _items.firstWhere((prod) => prod.id == id);
+    return p.imageUrl;
   }
 
   // Return of copy of the list of favorite products
