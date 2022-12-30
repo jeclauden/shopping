@@ -103,6 +103,25 @@ class ProductItem extends StatelessWidget {
                                         product.price,
                                         product.title,
                                       );
+
+                                      final snackBar = SnackBar(
+                                        duration: const Duration(seconds: 2),
+                                        content:
+                                            const Text('Added item to cart'),
+                                        action: SnackBarAction(
+                                          label: 'Undo',
+                                          onPressed: () {
+                                            cart.removeItem(product.id);
+                                          },
+                                        ),
+                                      );
+
+                                      // Find the ScaffoldMessenger in the widget tree
+                                      // and use it to show a SnackBar.
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }),
                                     icon: const Icon(Icons.shopping_cart),
                                   ),
