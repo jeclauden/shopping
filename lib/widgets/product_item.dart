@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping/providers/cart.dart';
 import 'package:shopping/providers/product_provider.dart';
 import 'package:shopping/screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context, listen: false);
     // Get product from the Provider
     return Consumer<Product>(
       builder: ((context, product, child) => Card(
@@ -81,7 +83,7 @@ class ProductItem extends StatelessWidget {
                                     'AU \$${product.price.toStringAsFixed(2)}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w700,
-                                        fontSize: 16),
+                                        fontSize: 25),
                                   ),
                                 ],
                               ),
@@ -95,9 +97,14 @@ class ProductItem extends StatelessWidget {
                                     // padding and constraints are needed to remove the auto added padding inside the IconButton
                                     padding: EdgeInsets.zero,
                                     constraints: const BoxConstraints(),
-                                    onPressed: (() {}),
-                                    icon: const Icon(
-                                        Icons.shopping_cart_outlined),
+                                    onPressed: (() {
+                                      cart.addItem(
+                                        product.id,
+                                        product.price,
+                                        product.title,
+                                      );
+                                    }),
+                                    icon: const Icon(Icons.shopping_cart),
                                   ),
                                   IconButton(
                                     // iconSize: 18,
