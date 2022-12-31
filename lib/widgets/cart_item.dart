@@ -21,6 +21,32 @@ class CartItem extends StatelessWidget {
     return _controller;
   }
 
+  TextButton _removeItem(BuildContext context, Cart cart, String id) =>
+      TextButton(
+        child: const Text("Remove"),
+        onPressed: () {
+          Navigator.of(context).pop(true); // dismiss dialog
+          cart.removeItem(id);
+        },
+      );
+
+  Widget _getAlertDialog(BuildContext ctx, TextButton button) {
+    return AlertDialog(
+      title: const Text("Remove item from the cart"),
+      content:
+          const Text("Do you really want to remove this item from the cart?"),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(ctx).pop(false);
+          },
+          child: const Text("Cancel"),
+        ),
+        button
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<Cart>(context, listen: false);
@@ -29,8 +55,11 @@ class CartItem extends StatelessWidget {
     return Dismissible(
       key: ValueKey(product.id),
       direction: DismissDirection.endToStart,
-      onDismissed: (direction) {
-        data.removeItem(product.id);
+      confirmDismiss: (direction) {
+        return showDialog(
+            context: context,
+            builder: (ctx) => _getAlertDialog(
+                context, _removeItem(context, data, product.id)));
       },
       background: Container(
         color: Colors.red,
@@ -154,9 +183,12 @@ class CartItem extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   TextButton(
-                                    onPressed: (() {
-                                      data.removeItem(product.id);
-                                    }),
+                                    onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (ctx) => _getAlertDialog(
+                                            context,
+                                            _removeItem(
+                                                context, data, product.id))),
                                     child: const Text("Remove"),
                                   )
                                 ],
