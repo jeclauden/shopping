@@ -66,22 +66,16 @@ class OrderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Row(
-        // mainAxisAlignment: MainAxisAlignment.start,
+      title: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Order Details",
-                style: TextStyle(fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(height: 10),
-              Text('Online #${order.id}')
-            ],
+          const Text(
+            "Order Details",
+            style: TextStyle(fontWeight: FontWeight.w500),
           ),
+          const SizedBox(height: 10),
+          Text('Online #${order.id}')
         ],
       ),
       subtitle: Text(
