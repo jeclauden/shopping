@@ -54,11 +54,32 @@ class ProductsProvider with ChangeNotifier {
     return _items.where((prod) => prod.isFavorite).toList();
   }
 
-  void addProduct() {
+  void addProduct(Product product) {
+    final newProduct = Product(
+      id: product.id,
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+    );
+    _items.add(newProduct);
     notifyListeners();
   }
 
   Product findProductById(String productId) {
     return _items.firstWhere((prod) => prod.id == productId);
+  }
+
+  void updateProduct(Product product) {
+    final productIndex = _items.indexWhere((prod) => prod.id == product.id);
+    _items[productIndex] = product;
+    notifyListeners();
+  }
+
+  void removeProduct(String productId) {
+    _items.removeWhere(
+      (prod) => prod.id == productId,
+    );
+    notifyListeners();
   }
 }
