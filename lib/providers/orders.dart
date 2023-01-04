@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping/providers/cart.dart';
-import 'dart:math';
+
+import '../widgets/app_utility.dart';
 
 class Order with ChangeNotifier {
   final String id;
@@ -16,18 +17,6 @@ class Order with ChangeNotifier {
   });
 }
 
-const _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-Random _rnd = Random();
-
-String getRandomString(int length) => String.fromCharCodes(
-      Iterable.generate(
-        length,
-        (_) => _chars.codeUnitAt(
-          _rnd.nextInt(_chars.length),
-        ),
-      ),
-    );
-
 class Orders with ChangeNotifier {
   final List<Order> _orders = [];
 
@@ -39,7 +28,7 @@ class Orders with ChangeNotifier {
     _orders.insert(
       0,
       Order(
-        id: getRandomString(10),
+        id: AppUtility().createOrderId(),
         amount: totalAmount,
         products: products,
         dateTime: DateTime.now(),
